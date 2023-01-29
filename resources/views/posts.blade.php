@@ -8,7 +8,7 @@
         @if($posts->count())
         <x-posts-grid :posts="$posts" />
         @else
-        <p class="text-center">No posts yet,please check it later.</p>
+        <p class="text-center">No posts yet,please check it later</p>
         @endif
     </main>
 </x-layout>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
+//guarded property => the opposite of fillable
     protected $guarded=[];
 
     protected $with=['category','author'];
