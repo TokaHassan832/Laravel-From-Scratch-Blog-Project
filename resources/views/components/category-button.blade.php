@@ -1,4 +1,3 @@
-
 @props(['category'])
 
 <a href="/categories/{{$category->slug}}"
