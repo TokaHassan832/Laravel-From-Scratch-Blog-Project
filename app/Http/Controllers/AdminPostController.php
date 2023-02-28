@@ -23,7 +23,7 @@ class AdminPostController extends Controller
     public function store()
     {
         $attributes=array_merge($this->ValidatePost(),[
-            'user_id' => request()->user()->id(),
+            'user_id' => request()->user()->id,
             'thumbnail'=> request()->file('thumbnail')->store('thumbnails')
         ]);
 
@@ -40,14 +40,15 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {
-        $attributes = $this->ValidatePost(new Post());
+        $attributes = $this->validatePost($post);
 
-        if ($attributes['thumbnail'] ?? false){
+        if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
-        $post->update($attributes);
-        return back()->with('success','Post Updated!');
 
+        $post->update($attributes);
+
+        return back()->with('success', 'Post Updated!');
     }
 
     public function destroy(Post $post){
@@ -66,7 +67,7 @@ class AdminPostController extends Controller
         return request()->validate([
             'title' => 'required',
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
-            'thumbnail' => $post->exists ? ['image'] : ['required,image'],
+            'thumbnail' => $post->exists ? ['image'] : ['required' , 'image'],
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')]
